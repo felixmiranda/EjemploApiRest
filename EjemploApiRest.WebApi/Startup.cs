@@ -1,4 +1,6 @@
+using EjemploApiRest.Abstractions;
 using EjemploApiRest.Application;
+using EjemploApiRest.DataAccess;
 using EjemploApiRest.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,6 +40,7 @@ namespace EjemploApiRest.WebApi
             //Inyeccion de dependencias
             services.AddScoped(typeof(IApplication<>), typeof(Application<>));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IDbContext<>), typeof(DbContext<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

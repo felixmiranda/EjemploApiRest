@@ -8,16 +8,22 @@ namespace EjemploApiRest.Repository
 
     }
 
-    public class Repository<T> : IRepository<T>
+    public class Repository<T> : IRepository<T> where T : IEntity
     {
+        IDbContext<T> _ctx;
+
+        public Repository(IDbContext<T> ctx)
+        {
+            _ctx = ctx;
+        }
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _ctx.Delete(id);
         }
 
         public System.Collections.Generic.IList<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _ctx.GetAll();
         }
 
         public T GetById(int id)

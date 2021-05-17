@@ -9,7 +9,7 @@ namespace EjemploApiRest.Application
     {
 
     }
-    public class Application<T> : IApplication<T>
+    public class Application<T> : IApplication<T> where T: IEntity
     {
         readonly IRepository<T> _repository;
 
