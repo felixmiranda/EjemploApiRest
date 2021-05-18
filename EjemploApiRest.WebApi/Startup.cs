@@ -4,17 +4,11 @@ using EjemploApiRest.DataAccess;
 using EjemploApiRest.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EjemploApiRest.WebApi
 {
@@ -36,6 +30,13 @@ namespace EjemploApiRest.WebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EjemploApiRest.WebApi", Version = "v1" });
             });
+
+            services.AddDbContext<ApiDbContext>(options =>
+               options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection"), 
+                    b => b.MigrationsAssembly("EjemploApiRest.WebApi")
+              )
+           );
 
             //Inyeccion de dependencias
             services.AddScoped(typeof(IApplication<>), typeof(Application<>));

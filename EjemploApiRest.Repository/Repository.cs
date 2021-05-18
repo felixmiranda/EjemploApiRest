@@ -10,7 +10,7 @@ namespace EjemploApiRest.Repository
 
     public class Repository<T> : IRepository<T> where T : IEntity
     {
-        IDbContext<T> _ctx;
+        readonly IDbContext<T> _ctx;
 
         public Repository(IDbContext<T> ctx)
         {
@@ -28,12 +28,13 @@ namespace EjemploApiRest.Repository
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            return _ctx.GetById(id);
+
         }
 
         public T Save(T entity)
         {
-            throw new NotImplementedException();
+            return _ctx.Save(entity);
         }
     }
 }

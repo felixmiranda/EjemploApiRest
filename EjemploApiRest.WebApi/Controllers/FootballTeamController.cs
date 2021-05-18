@@ -1,5 +1,6 @@
 ﻿using EjemploApiRest.Application;
 using EjemploApiRest.Entities;
+using EjemploApiRest.WebApi.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,11 +23,21 @@ namespace EjemploApiRest.WebApi.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(new FootballTeam()
+            return Ok(_football.GetAll());
+        }
+
+
+        [HttpPost]
+        public IActionResult Save (FootballTeamDTO dto )
+        {
+            var f = new FootballTeam()
             {
-                Name = "San Lorenzo",
-                Score = 100
-            });
+                Name = dto.Name,
+                Score = dto.Score,
+                Manager = dto.Manager
+            };
+
+            return Ok(_football.Save(f));
         }
     }
 }
